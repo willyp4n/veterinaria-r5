@@ -18,22 +18,24 @@ import static org.junit.Assert.*;
  * @author j4ckdev
  */
 public class dbConnectionTest {
-    
+
+    String dbName = "veterinariaTest";
+
     public dbConnectionTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -45,8 +47,7 @@ public class dbConnectionTest {
     public void testGet() {
         System.out.println("Conexión a la base de datos");
         Connection notExpectedResult = null;
-        String dbName = "veterinariaTest";
-        Connection result = dbConnection.get(dbName);
+        Connection result = dbConnection.get("veterinaria");
         assertNotEquals(notExpectedResult, result);
-    }    
+    }
 }
