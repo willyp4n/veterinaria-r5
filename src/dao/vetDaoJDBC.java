@@ -17,18 +17,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.vetModel;
+import models.vetModel;
 import utils.dbConnection;
 
 public class vetDaoJDBC implements vetDaoInterface {
+    
+    String dbName = "veterinaria";
 
     @Override
     public List<vetModel> obtenerPropietario() {
         Connection conn = null;
         List<vetModel> propietarios = new ArrayList();
-
         try {
-            conn = dbConnection.get();
+            conn = dbConnection.get(dbName);
             String sql = " SELECT * FROM propietario ";
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
@@ -48,7 +49,7 @@ public class vetDaoJDBC implements vetDaoInterface {
         Connection conn = null;
         vetModel propietario = null;
         try {
-            conn = dbConnection.get();
+            conn = dbConnection.get(dbName);
             String sql = " SELECT * FROM propietario where propId=?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
@@ -68,7 +69,7 @@ public class vetDaoJDBC implements vetDaoInterface {
     public void actualizarPropietario(vetModel propietario) {
         Connection conn = null;
         try {
-            conn = dbConnection.get();
+            conn = dbConnection.get(dbName);
             String sql = "UPDATE propietario SET propUsuario =?, propNombre =  ?, propApellido =  ?, propTelefono = ?  WHERE  propId =  ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, propietario.getPropUsuario());
@@ -90,7 +91,7 @@ public class vetDaoJDBC implements vetDaoInterface {
     public void eliminarPropietario(int id) {
         Connection conn = null;
         try {
-            conn = dbConnection.get();
+            conn = dbConnection.get(dbName);
             String sql = " DELETE FROM propietario WHERE propId =?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
@@ -108,7 +109,7 @@ public class vetDaoJDBC implements vetDaoInterface {
     public void agregarPropietario(vetModel propietario) {
         Connection conn = null;
         try {
-            conn = dbConnection.get();
+            conn = dbConnection.get(dbName);
             String sql = "INSERT INTO propietario(propUsuario,propNombre,propApellido,propTelefono) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, propietario.getPropUsuario());

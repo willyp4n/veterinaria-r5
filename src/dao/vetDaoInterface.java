@@ -10,7 +10,7 @@ package dao;
  * @author WILLY
  */
 import java.util.List;
-import model.vetModel;
+import models.vetModel;
 
 public interface vetDaoInterface {
 
