@@ -9,24 +9,24 @@ package controllers;
  *
  * @author WILLY
  */
-import dao.vetDaoInterface;
+import dao.OwnerDaoInterface;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import models.vetModel;
+import models.OwnerModel;
 
-public class vetController {
-    private vetDaoInterface vetDao;
+public class OwnerController {
+    private OwnerDaoInterface ownerDao;
 
-    public vetController(vetDaoInterface vetDao) {
-        this.vetDao = vetDao;
+    public OwnerController(OwnerDaoInterface ownerDao) {
+        this.ownerDao = ownerDao;
     }
 
-    public DefaultTableModel consultarPropietarios() {
+    public DefaultTableModel readOwners() {
         String[] titulos = {"Id", "Usuario", "Apellido", "Nombre", "Telefono"};
         DefaultTableModel model = new DefaultTableModel(null, titulos);
 
-        List<vetModel> propietarios = vetDao.obtenerPropietario();
-        for (vetModel propietario : propietarios) {
+        List<OwnerModel> propietarios = ownerDao.getOwners();
+        for (OwnerModel propietario : propietarios) {
             String[] registro = new String[5];
             registro[0] = propietario.getPropId() + "";
             registro[1] = propietario.getPropUsuario();
@@ -38,16 +38,16 @@ public class vetController {
         return model;
     }
 
-    public void actualizarPropietario(vetModel l) {
-        vetDao.actualizarPropietario(l);
+    public void updateOwner(OwnerModel l) {
+        ownerDao.deleteOwner(l);
     }
 
-    public void agregarPropietario(vetModel l) {
-        vetDao.agregarPropietario(l);
+    public void addOwner(OwnerModel l) {
+        ownerDao.addOwner(l);
     }
     
-    public void eliminarPropietario(int id){
-        vetDao.eliminarPropietario(id);
+    public void deleteOwner(int id){
+        ownerDao.eliminarPropietario(id);
     }
 }
     

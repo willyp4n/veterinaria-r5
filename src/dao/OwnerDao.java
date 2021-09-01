@@ -24,12 +24,12 @@ public class OwnerDao implements OwnerDaoInterface {
     
     String dbName;
     
-    OwnerDao (String dbName){
+    public OwnerDao (String dbName){
         this.dbName = dbName;
     }
       
     @Override
-    public List<OwnerModel> obtenerPropietarios() {
+    public List<OwnerModel> getOwners() {
         Connection conn = null;
         List<OwnerModel> propietarios = new ArrayList();
         try {
@@ -49,12 +49,12 @@ public class OwnerDao implements OwnerDaoInterface {
         return propietarios;
     }
     @Override
-    public OwnerModel obtenerPropietario(int id) {
+    public OwnerModel getOwner(int id) {
         Connection conn = null;
         OwnerModel propietario = null;
         try {
             conn = dbConnection.get(dbName);
-            String sql = "SELECT * FROM propietario WHERE propId = ?";
+            String sql = "SELECT * FROM propietario WHERE propId = ?;";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
@@ -71,8 +71,9 @@ public class OwnerDao implements OwnerDaoInterface {
     }
 
     @Override
-    public void actualizarPropietario(OwnerModel propietario) {
+    public boolean deleteOwner(OwnerModel propietario) {
         Connection conn = null;
+        boolean isOwnerUpdated = false;
         try {
             conn = dbConnection.get(dbName);
             String sql = "UPDATE propietario SET propUsuario=?, propNombre=?, propApellido=?, propTelefono=? WHERE propId=?;";
@@ -84,18 +85,19 @@ public class OwnerDao implements OwnerDaoInterface {
             statement.setInt(5, propietario.getPropId());
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(null, "El registro fue "
-                        + " actualizado exitosamente !");
+                isOwnerUpdated = true;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : "
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
         }
+        return isOwnerUpdated;
     }
     
     @Override
-    public void eliminarPropietario(int id) {
+    public boolean eliminarPropietario(int id) {
         Connection conn = null;
+        boolean isOwnerDeleted = false;
         try {
             conn = dbConnection.get(dbName);
             String sql = "DELETE FROM propietario WHERE propId=?;";
@@ -103,17 +105,19 @@ public class OwnerDao implements OwnerDaoInterface {
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println(" Borrado exitoso !");
+                isOwnerDeleted = true;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : "
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
         }
+        return isOwnerDeleted;
     }
 
     @Override
-    public void agregarPropietario(OwnerModel propietario) {
+    public boolean addOwner(OwnerModel propietario) {
         Connection conn = null;
+        boolean isOwnerAdded = false;
         try {
             conn = dbConnection.get(dbName);
             String sql = "INSERT INTO propietario(propUsuario,propNombre,propApellido,propTelefono) VALUES (?, ?, ?, ?)";
@@ -124,12 +128,12 @@ public class OwnerDao implements OwnerDaoInterface {
             statement.setString(4, propietario.getPropTelefono());        
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(null, "El registro fue "
-                        + " creado exitosamente !");
+                isOwnerAdded = true;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : "
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
         }
+        return isOwnerAdded ;
     }
 }

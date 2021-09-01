@@ -14,14 +14,14 @@ import models.OwnerModel;
 
 public interface OwnerDaoInterface {
 
-    public List<OwnerModel> obtenerPropietarios();
+    public List<OwnerModel> getOwners();
 
-    public OwnerModel obtenerPropietario(int Id);
+    public OwnerModel getOwner(int Id);
 
-    public void agregarPropietario(OwnerModel propietario);
+    public boolean addOwner(OwnerModel propietario);
 
-    public void actualizarPropietario(OwnerModel propietario);
+    public boolean deleteOwner(OwnerModel propietario);
 
-    public void eliminarPropietario(int propId);
+    public boolean eliminarPropietario(int propId);
 
 }

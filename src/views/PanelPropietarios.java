@@ -5,9 +5,9 @@
  */
 package views;
 
-import controllers.vetController;
-import dao.vetDaoInterface;
-import dao.vetDaoJDBC;
+import controllers.OwnerController;
+import dao.OwnerDao;
+import dao.OwnerDaoInterface;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
@@ -25,7 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import models.vetModel;
+import models.OwnerModel;
 
 public class PanelPropietarios extends JPanel {
 
@@ -33,18 +33,18 @@ public class PanelPropietarios extends JPanel {
     JTable table = new JTable();
     JScrollPane jsp = new JScrollPane(table);
     private boolean editable; // variable bandera, para evitar modificar propId
-    vetController controller;
-
+    OwnerController controller;
+    String dbName = "veterinaria";
+    
     public PanelPropietarios() {
-        vetDaoInterface control = new vetDaoJDBC();
-        controller = new vetController(control);
+        OwnerDaoInterface control = new OwnerDao(dbName);
+        controller = new OwnerController(control);
         initComponents();
         cargarPropietarios();
-
     }
 
     public void cargarPropietarios() {
-        table.setModel(controller.consultarPropietarios());
+        table.setModel(controller.readOwners());
         table.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 14));
         table.setFont(new java.awt.Font("Tahoma", 0, 12));
         adjustTextToTable();
@@ -57,7 +57,7 @@ public class PanelPropietarios extends JPanel {
         int column = 0;
         int row = table.getSelectedRow();
         String value = model.getValueAt(row, column).toString();
-        controller.eliminarPropietario(Integer.parseInt(value));
+        controller.deleteOwner(Integer.parseInt(value));
         model.removeRow(row);
 
     }
@@ -134,16 +134,16 @@ public class PanelPropietarios extends JPanel {
                     String propApellido = table.getModel().getValueAt(tcl.getRow(), 2).toString();
                     String propNombre = table.getModel().getValueAt(tcl.getRow(), 3).toString();
                     String propTelefono = table.getModel().getValueAt(tcl.getRow(), 4).toString();
-                    vetModel l = new vetModel(propId, propUuario,propApellido, propNombre, propTelefono);
-                    controller.actualizarPropietario(l);
+                    OwnerModel l = new OwnerModel(propId, propUuario,propApellido, propNombre, propTelefono);
+                    controller.updateOwner(l);
                 } else {
                    int propId = Integer.parseInt(table.getModel().getValueAt(tcl.getRow(), 0).toString());
                     String propUuario = table.getModel().getValueAt(tcl.getRow(), 1).toString();
                     String propApellido = table.getModel().getValueAt(tcl.getRow(), 2).toString();
                     String propNombre = table.getModel().getValueAt(tcl.getRow(), 3).toString();
                     String propTelefono = table.getModel().getValueAt(tcl.getRow(), 4).toString();
-                    vetModel l = new vetModel(propId, propUuario,propApellido, propNombre, propTelefono);
-                    controller.agregarPropietario(l);
+                    OwnerModel l = new OwnerModel(propId, propUuario,propApellido, propNombre, propTelefono);
+                    controller.addOwner(l);
                     editable = false;
                 }
             }

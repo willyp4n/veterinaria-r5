@@ -87,7 +87,7 @@ public class OwnerDaoTest {
         List<OwnerModel> expectedResult = new ArrayList();
         expectedResult.add(testData1);
         expectedResult.add(testData2);
-        List<OwnerModel> result = ownerDao.obtenerPropietarios();
+        List<OwnerModel> result = ownerDao.getOwners();
         assertEquals(expectedResult.toString(), result.toString());
     }
 
@@ -99,7 +99,7 @@ public class OwnerDaoTest {
         System.out.println("Obtener la información de un propietario especificado");
         OwnerDao ownerDao = new OwnerDao(dbName);
         OwnerModel expectedResult = new OwnerModel(1, "usuario1", "nombre1", "apellido1", "0123456789");
-        OwnerModel result = ownerDao.obtenerPropietario(1);
+        OwnerModel result = ownerDao.getOwner(1);
         assertEquals(expectedResult.toString(), result.toString());
     }
 
@@ -111,7 +111,7 @@ public class OwnerDaoTest {
         System.out.println("Actualizar la información de un propietario especificado");
         OwnerModel dataToUpdate = new OwnerModel(1, "usuario1", "nombre1", "apellido1", "2345678901");
         OwnerDao ownerDao = new OwnerDao(dbName);
-        boolean result = ownerDao.actualizarPropietario(dataToUpdate);
+        boolean result = ownerDao.deleteOwner(dataToUpdate);
         assertTrue(result);
     }
 
@@ -134,7 +134,7 @@ public class OwnerDaoTest {
         System.out.println("Agregar la información de un nuevo propietario");
         OwnerModel newOwner = new OwnerModel(3, "jdoe", "John", "Doe", "2345678901");
         OwnerDao ownerDao = new OwnerDao(dbName);
-        boolean result = ownerDao.agregarPropietario(newOwner);
+        boolean result = ownerDao.addOwner(newOwner);
         assertTrue(result);
     }
 
