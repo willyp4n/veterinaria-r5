@@ -43,8 +43,8 @@ public class vetDaoJDBC implements vetDaoInterface {
         }
         return propietarios;
     }
-
-    public vetModel obtenerpropietario(int id) {
+    @Override
+    public vetModel obtenerPropietario(int id) {
         Connection conn = null;
         vetModel propietario = null;
         try {
@@ -86,6 +86,7 @@ public class vetDaoJDBC implements vetDaoInterface {
         }
     }
     
+    @Override
     public void eliminarPropietario(int id) {
         Connection conn = null;
         try {
@@ -108,7 +109,7 @@ public class vetDaoJDBC implements vetDaoInterface {
         Connection conn = null;
         try {
             conn = dbConnection.get();
-            String sql = "INSERT INTO propietario(propId,propUsuario,propNombre,propApellido,propTelefono) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO propietario(propUsuario,propNombre,propApellido,propTelefono) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, propietario.getPropUsuario());
             statement.setString(2, propietario.getPropNombre());

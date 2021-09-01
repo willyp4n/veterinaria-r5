@@ -16,7 +16,7 @@ public interface vetDaoInterface {
 
     public List<vetModel> obtenerPropietario();
 
-    public vetModel obtenerPropietario(int propId);
+    public vetModel obtenerPropietario(int Id);
 
     public void agregarPropietario(vetModel propietario);
 
