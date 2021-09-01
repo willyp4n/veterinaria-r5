@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class dbConnection {
 
-    public static Connection get() {
+    public static Connection get(String dbName) {
         dbCredentials credentials = new dbCredentials();
         Connection dbConnection = null;
         try {
@@ -18,7 +18,6 @@ public class dbConnection {
             String accessPort = credentials.accessPort;
             String user = credentials.user;
             String pass = credentials.pass;
-            String dbName = "veterinaria";
             String dbUrl = "jdbc:mysql://" + host + ":" + accessPort + "/" + dbName;
             dbConnection = DriverManager.getConnection(dbUrl, user, pass);
         } catch (SQLException ex) {
