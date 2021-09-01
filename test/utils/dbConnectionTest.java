@@ -19,8 +19,6 @@ import static org.junit.Assert.*;
  */
 public class dbConnectionTest {
 
-    String dbName = "veterinariaTest";
-
     public dbConnectionTest() {
     }
 
@@ -41,13 +39,24 @@ public class dbConnectionTest {
     }
 
     /**
-     * Probar la conexión a la base de datos
+     * Probar la conexión a la base de datos principal
      */
     @Test
-    public void testGet() {
-        System.out.println("Conexión a la base de datos");
+    public void shouldConnectToMainDatabase() {
+        System.out.println("Conexión a la base de datos principal");
         Connection notExpectedResult = null;
         Connection result = dbConnection.get("veterinaria");
+        assertNotEquals(notExpectedResult, result);
+    }
+    
+    /**
+     * Probar la conexión a la base de datos de pruebas
+     */
+    @Test
+    public void shouldConnectToTestDatabase() {
+        System.out.println("Conexión a la base de datos de pruebas");
+        Connection notExpectedResult = null;
+        Connection result = dbConnection.get("veterinariaTest");
         assertNotEquals(notExpectedResult, result);
     }
 }
