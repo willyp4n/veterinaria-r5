@@ -38,11 +38,11 @@ public class vetController {
         return model;
     }
 
-    public void actualizarLibro(vetModel l) {
+    public void actualizarPropietario(vetModel l) {
         vetDao.actualizarPropietario(l);
     }
 
-    public void agregarLibro(vetModel l) {
+    public void agregarPropietario(vetModel l) {
         vetDao.agregarPropietario(l);
     }
     
