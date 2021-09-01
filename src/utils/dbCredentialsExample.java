@@ -11,4 +11,21 @@ public class dbCredentialsExample {
     private final String accessPort = "su puerto"; // Por defecto es 3306
     private final String user = "Su usuario de acceso a la base de datos"; 
     private final String pass = "Su contraseña de acceso a la base de datos";
+
+    public String getIp() {
+        return ip;
+    }
+
+    public String getAccessPort() {
+        return accessPort;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+    
 }
