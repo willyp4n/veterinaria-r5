@@ -20,8 +20,8 @@ public interface OwnerDaoInterface {
 
     public boolean addOwner(OwnerModel propietario);
 
-    public boolean deleteOwner(OwnerModel propietario);
+    public boolean updateOwner(OwnerModel propietario);
 
-    public boolean eliminarPropietario(int propId);
+    public boolean deleteOwner(int propId);
 
 }

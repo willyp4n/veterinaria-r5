@@ -31,27 +31,27 @@ public class OwnerDao implements OwnerDaoInterface {
     @Override
     public List<OwnerModel> getOwners() {
         Connection conn = null;
-        List<OwnerModel> propietarios = new ArrayList();
+        List<OwnerModel> owners = new ArrayList();
         try {
             conn = dbConnection.get(dbName);
             String sql = "SELECT * FROM propietario;";
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
-                OwnerModel propietario = new OwnerModel(result.getInt(1), result.getString(2), result.getString(3),
+                OwnerModel owner = new OwnerModel(result.getInt(1), result.getString(2), result.getString(3),
                         result.getString(4), result.getString(5));
-                propietarios.add(propietario);
+                owners.add(owner);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : "
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
         }
-        return propietarios;
+        return owners;
     }
     @Override
     public OwnerModel getOwner(int id) {
         Connection conn = null;
-        OwnerModel propietario = null;
+        OwnerModel owner = null;
         try {
             conn = dbConnection.get(dbName);
             String sql = "SELECT * FROM propietario WHERE propId = ?;";
@@ -59,7 +59,7 @@ public class OwnerDao implements OwnerDaoInterface {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                propietario = new OwnerModel(result.getInt(1), result.getString(2), result.getString(3),
+                owner = new OwnerModel(result.getInt(1), result.getString(2), result.getString(3),
                         result.getString(4), result.getString(5));
                 break;
             }
@@ -67,11 +67,11 @@ public class OwnerDao implements OwnerDaoInterface {
             JOptionPane.showMessageDialog(null, "Código : "
                     + ex.getErrorCode() + "\nError :" + ex.getMessage());
         }
-        return propietario;
+        return owner;
     }
 
     @Override
-    public boolean deleteOwner(OwnerModel propietario) {
+    public boolean updateOwner(OwnerModel propietario) {
         Connection conn = null;
         boolean isOwnerUpdated = false;
         try {
@@ -95,7 +95,7 @@ public class OwnerDao implements OwnerDaoInterface {
     }
     
     @Override
-    public boolean eliminarPropietario(int id) {
+    public boolean deleteOwner(int id) {
         Connection conn = null;
         boolean isOwnerDeleted = false;
         try {

@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import models.OwnerModel;
 
 public class OwnerController {
+
     private OwnerDaoInterface ownerDao;
 
     public OwnerController(OwnerDaoInterface ownerDao) {
@@ -22,33 +23,56 @@ public class OwnerController {
     }
 
     public DefaultTableModel readOwners() {
-        String[] titulos = {"Id", "Usuario", "Apellido", "Nombre", "Telefono"};
-        DefaultTableModel model = new DefaultTableModel(null, titulos);
+        String[] titles = {"Id", "Usuario", "Apellido", "Nombre", "Telefono"};
+        DefaultTableModel table = new DefaultTableModel(null, titles);
 
-        List<OwnerModel> propietarios = ownerDao.getOwners();
-        for (OwnerModel propietario : propietarios) {
-            String[] registro = new String[5];
-            registro[0] = propietario.getPropId() + "";
-            registro[1] = propietario.getPropUsuario();
-            registro[2] = propietario.getPropApellido() + "";
-            registro[3] = propietario.getPropNombre()+ "";
-            registro[4] = propietario.getPropTelefono()+ "";
-            model.addRow(registro);
+        List<OwnerModel> owners = ownerDao.getOwners();
+        owners.stream().map((owner) -> {
+            String[] row = new String[5];
+            row[0] = owner.getPropId() + "";
+            row[1] = owner.getPropUsuario();
+            row[2] = owner.getPropApellido();
+            row[3] = owner.getPropNombre();
+            row[4] = owner.getPropTelefono();
+            return row;
+        }).forEachOrdered((row) -> {
+            table.addRow(row);
+        });
+        return table;
+    }
+
+    public DefaultTableModel readOwner(int id) {
+        String[] titles = {"Id", "Usuario", "Apellido", "Nombre", "Telefono"};
+        DefaultTableModel table = new DefaultTableModel(null, titles);
+
+        OwnerModel owner = ownerDao.getOwner(id);
+        String[] row = new String[5];
+        if (owner != null) {
+            row[0] = owner.getPropId()+"";
+            row[1] = owner.getPropUsuario();
+            row[2] = owner.getPropApellido();
+            row[3] = owner.getPropNombre();
+            row[4] = owner.getPropTelefono();            
+        } else {
+            row[0] = "";
+            row[1] = "";
+            row[2] = "";
+            row[3] = "";
+            row[4] = "";            
         }
-        return model;
+        table.addRow(row);
+        return table;
     }
 
-    public void updateOwner(OwnerModel l) {
-        ownerDao.deleteOwner(l);
+    public boolean updateOwner(OwnerModel owner) {
+        return ownerDao.updateOwner(owner);
     }
 
-    public void addOwner(OwnerModel l) {
-        ownerDao.addOwner(l);
+    public boolean addOwner(OwnerModel owner) {
+        return ownerDao.addOwner(owner);
     }
-    
-    public void deleteOwner(int id){
-        ownerDao.eliminarPropietario(id);
+
+    public boolean deleteOwner(int id) {
+        return ownerDao.deleteOwner(id);
     }
 }
-    
-

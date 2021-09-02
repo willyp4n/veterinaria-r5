@@ -111,7 +111,7 @@ public class OwnerDaoTest {
         System.out.println("Actualizar la información de un propietario especificado");
         OwnerModel dataToUpdate = new OwnerModel(1, "usuario1", "nombre1", "apellido1", "2345678901");
         OwnerDao ownerDao = new OwnerDao(dbName);
-        boolean result = ownerDao.deleteOwner(dataToUpdate);
+        boolean result = ownerDao.updateOwner(dataToUpdate);
         assertTrue(result);
     }
 
@@ -122,7 +122,7 @@ public class OwnerDaoTest {
     public void shouldDeleteAnOwner() {
         System.out.println("Eliminar la información de un propietario especificado");
         OwnerDao ownerDao = new OwnerDao(dbName);
-        boolean result = ownerDao.eliminarPropietario(2);
+        boolean result = ownerDao.deleteOwner(2);
         assertTrue(result);
     }
 
