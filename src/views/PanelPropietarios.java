@@ -52,8 +52,6 @@ public class PanelPropietarios extends JPanel {
 
     public void removeSelectedRows(JTable table) {
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
-        //int[] rows = table.getSelectedRows();
-        //for (int i = 0; i < rows.length; i++) {
         int column = 0;
         int row = table.getSelectedRow();
         String value = model.getValueAt(row, column).toString();
@@ -63,7 +61,6 @@ public class PanelPropietarios extends JPanel {
     }
 
     private void adjustTextToTable() {
-        //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         final TableColumnModel columnModel = table.getColumnModel();
         for (int column = 0; column < table.getColumnCount(); column++) {
             int width = 15; // Min width
@@ -82,7 +79,7 @@ public class PanelPropietarios extends JPanel {
     private void initComponents() {
         setLayout(new BorderLayout()); //bordes
         // Establece el gestor de organización en forma de retícula de tamaño 10x1      
-        jLabelTitulo = new JLabel("owner management", SwingConstants.CENTER);
+        jLabelTitulo = new JLabel("Administración de Propietarios", SwingConstants.CENTER);
         add(jLabelTitulo, BorderLayout.NORTH); // añade titulo parte norte pantalla
         Font aux = jLabelTitulo.getFont();
         jLabelTitulo.setFont(new Font(aux.getFontName(), aux.getStyle(), 20)); // cambia tamaño fuente
@@ -102,13 +99,11 @@ public class PanelPropietarios extends JPanel {
         JMenuItem deleteItem = new JMenuItem("Delete selected row...");
         deleteItem.addActionListener((ActionEvent e) -> {
             removeSelectedRows(table);
-            //JOptionPane.showMessageDialog(null, "Right-click performed on table and choose DELETE");
         });
         JMenuItem addItem = new JMenuItem("Add...");
         addItem.addActionListener((ActionEvent e) -> {
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             editable = true;
-            //model.addRow(new Object[]{"id", "Usuario", Calendar.getInstance().get(Calendar.YEAR) + "", "precio"});
               model.addRow(new Object[]{"id", "Usuario", "Apellido", "Nombre", "Telefono"});
         });
         popupMenu.add(addItem);

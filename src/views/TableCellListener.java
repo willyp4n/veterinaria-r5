@@ -12,14 +12,9 @@ package views;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
-
-/**
- * https://tips4java.wordpress.com/2009/06/07/table-cell-listener/
-*/
 
 public class TableCellListener implements PropertyChangeListener, Runnable {
     

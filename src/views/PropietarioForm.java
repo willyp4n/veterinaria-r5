@@ -22,7 +22,7 @@ public class PropietarioForm extends JFrame {
 
     private void initComponents() {
         // Establece el titulo de la ventana
-        setTitle(" Owner management system ");
+        setTitle(" Veterinaria Popis ");
 
         // Crea un panel para alojar la tabla*/
         PanelPropietarios panelPropietarios = new PanelPropietarios();
